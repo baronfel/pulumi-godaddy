@@ -1,9 +1,9 @@
-PROJECT_NAME := CloudAMQP Package
+PROJECT_NAME := GoDaddy package
 include build/common.mk
 
-PACK             := cloudamqp
+PACK             := godaddy
 PACKDIR          := sdk
-PROJECT          := github.com/pulumi/pulumi-${PACK}
+PROJECT          := github.com/baronfel/pulumi-${PACK}
 NODE_MODULE_NAME := @pulumi/${PACK}
 TF_NAME          := ${PACK}
 

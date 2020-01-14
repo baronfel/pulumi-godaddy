@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package cloudamqp
+package godaddy
 
 import (
 	"unicode"
 
-	"github.com/cloudamqp/terraform-provider-cloudamqp/cloudamqp"
+	"github.com/n3integration/terraform-godaddy/plugin/terraform-godaddy"
 	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
 	"github.com/pulumi/pulumi/pkg/tokens"
 )
@@ -25,7 +25,7 @@ import (
 // all of the token components used below.
 const (
 	// packages:
-	mainPkg = "cloudamqp"
+	mainPkg = "godaddy"
 	// modules:
 	mainMod = "index" // the y module
 )
@@ -61,39 +61,42 @@ func refProviderLicense(license tfbridge.TFProviderLicense) *tfbridge.TFProvider
 }
 
 func Provider() tfbridge.ProviderInfo {
-	p := cloudamqp.Provider()
+	p := godaddy.Provider()
 	prov := tfbridge.ProviderInfo{
 		P:                 p,
-		Name:              "cloudamqp",
-		GitHubOrg:         "cloudamqp",
-		Description:       "A Pulumi package for creating and managing CloudAMQP resources.",
-		Keywords:          []string{"pulumi", "cloudamqp"},
+		Name:              "godaddy",
+		GitHubOrg:         "godaddy",
+		Description:       "A Pulumi package for creating and managing GoDaddy DNS resources.",
+		Keywords:          []string{"pulumi", "godaddy"},
 		License:           "Apache-2.0",
 		TFProviderLicense: refProviderLicense(tfbridge.MITLicenseType),
 		Homepage:          "https://pulumi.io",
-		Repository:        "https://github.com/pulumi/pulumi-cloudamqp",
+		Repository:        "https://github.com/baronfel/pulumi-godaddy",
 		Config: map[string]*tfbridge.SchemaInfo{
-			"apikey": {
-				Type: "string",
-				Default: &tfbridge.DefaultInfo{
-					EnvVars: []string{"CLOUDAMQP_APIKEY"},
+			"key": {
+				Type: makeType("key", "Key"),
+				Default: &tfBridge.DefaultInfo{
+					EnvVars: []string{"GODADDY_API_KEY"},
+				},
+			},
+			"secret": {
+				Type: makeType("secret", "Secret"),
+				Default: &tfBridge.DefaultInfo{
+					EnvVars: []string{"GODADDY_API_SECRET"},
+				},
+			},
+			"baseURL": {
+				Type: makeType("baseURL", "BaseURL"),
+				Default: &tfBridge.DefaultInfo{
+					Value: string{"https://api.godaddy.com"},
 				},
 			},
 		},
 		Resources: map[string]*tfbridge.ResourceInfo{
-			"cloudamqp_alarm":             {Tok: makeResource(mainMod, "Alarm")},
-			"cloudamqp_instance":          {Tok: makeResource(mainMod, "Instance")},
-			"cloudamqp_notification":      {Tok: makeResource(mainMod, "Notification")},
-			"cloudamqp_plugin":            {Tok: makeResource(mainMod, "Plugin")},
-			"cloudamqp_plugin_community":  {Tok: makeResource(mainMod, "PluginCommunity")},
-			"cloudamqp_security_firewall": {Tok: makeResource(mainMod, "SecurityFirewall")},
-			"cloudamqp_vpc_peering":       {Tok: makeResource(mainMod, "VpcPeering")},
+			"godaddy_domain_record": {Tok: makeResource(mainMod, "DomainRecord")},
 		},
 		DataSources: map[string]*tfbridge.DataSourceInfo{
-			"cloudamqp_credentials":       {Tok: makeDataSource(mainMod, "getCredentials")},
-			"cloudamqp_plugins":           {Tok: makeDataSource(mainMod, "getPlugins")},
-			"cloudamqp_plugins_community": {Tok: makeDataSource(mainMod, "getPluginsCommunity")},
-			"cloudamqp_vpc_info":          {Tok: makeDataSource(mainMod, "getVpcInfo")},
+			"godaddy_domain_record": {Tok: makeDataSource(mainMod, "getDomainRecord")},
 		},
 		JavaScript: &tfbridge.JavaScriptInfo{
 			Dependencies: map[string]string{
@@ -115,7 +118,7 @@ func Provider() tfbridge.ProviderInfo {
 				"System.Collections.Immutable": "1.6.0",
 			},
 			Namespaces: map[string]string{
-				mainPkg: "CloudAmqp",
+				mainPkg: "GoDaddy",
 			},
 		},
 	}

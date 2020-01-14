@@ -1,14 +1,13 @@
-module github.com/pulumi/pulumi-cloudamqp
+module github.com/pulumi/pulumi-godaddy
 
 go 1.13
 
 require (
-	cloud.google.com/go/logging v1.0.0 // indirect
-	github.com/84codes/go-api v0.0.0-20191213113653-9c826acead17 // indirect
-	github.com/cloudamqp/terraform-provider-cloudamqp v1.2.2
+	github.com/baronfel/pulumi-godaddy v0.0.0-20200114182609-e673654a523c
 	github.com/hashicorp/terraform v0.12.17 // indirect
+	github.com/n3integration/terraform-godaddy v1.7.0
 	github.com/pkg/errors v0.8.1
-	github.com/pulumi/pulumi v1.6.1
+	github.com/pulumi/pulumi v1.8.0
 	github.com/pulumi/pulumi-terraform v0.18.4-0.20191202134852-87cfb4dc8ae1
 )
 

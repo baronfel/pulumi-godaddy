@@ -17,11 +17,11 @@ package main
 import (
 	"github.com/pulumi/pulumi-terraform/pkg/tfbridge"
 
-	cloudamqp "github.com/pulumi/pulumi-cloudamqp"
-	"github.com/pulumi/pulumi-cloudamqp/pkg/version"
+	godaddy "github.com/baronfel/pulumi-godaddy"
+	"github.com/baronfel/pulumi-godaddy/pkg/version"
 )
 
 func main() {
 	// Modify the path to point to the new provider
-	tfbridge.Main("cloudamqp", version.Version, cloudamqp.Provider())
+	tfbridge.Main("godaddy", version.Version, godaddy.Provider())
 }

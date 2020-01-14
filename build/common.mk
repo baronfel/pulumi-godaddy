@@ -155,7 +155,7 @@ else
 	@echo "GO111MODULE=on GOPROXY=$(GOPROXY) go mod tidy"; GO111MODULE=on GOPROXY=$(GOPROXY) go mod tidy
 	@echo "GO111MODULE=on GOPROXY=$(GOPROXY) go mod vendor"; GO111MODULE=on GOPROXY=$(GOPROXY) go mod vendor
 endif
-	gomod-doccopy -org cloudamqp -provider terraform-provider-$(TF_NAME);
+	gomod-doccopy -provider terraform-provider-$(TF_NAME);
 	@if [ -e 'package.json' ]; then echo "yarn install"; yarn install; fi
 
 build::
